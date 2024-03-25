@@ -2,33 +2,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class SquareEquation {
-    private final double a;
-    private final double b;
-    private final double c;
+    private final double aCoefficient;
+    private final double bCoefficient;
+    private final double cCoefficient;
 
-    public SquareEquation(double a, double b, double c) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
+    public SquareEquation(double aCoefficient, double bCoefficient, double cCoefficient) {
+        this.aCoefficient = aCoefficient;
+        this.bCoefficient = bCoefficient;
+        this.cCoefficient = cCoefficient;
     }
-    public void displayAllInfo() {
-        System.out.println(this);
-        double[] roots = getSolution();
-        System.out.println("Корни уравнения: " + roots[0] + ", " + roots[1]);
-        System.out.println("Экстремум: " + getExtremum());
-        displayIntervalOfRaiseAndDown();
-    };
 
     private double getDiscriminant() {
-        return b * b - 4 * a * c;
+        return bCoefficient * bCoefficient - 4 * aCoefficient * cCoefficient;
     }
 
     private double getRootFirst() {
-        return (-b + Math.sqrt(getDiscriminant())) / (2 * a);
+        return (-bCoefficient + Math.sqrt(getDiscriminant())) / (2 * aCoefficient);
     }
 
     private double getRootSecond() {
-        return (-b - Math.sqrt(getDiscriminant())) / (2 * a);
+        return (-bCoefficient - Math.sqrt(getDiscriminant())) / (2 * aCoefficient);
     }
 
     public double[] getSolution() {
@@ -39,20 +32,28 @@ public class SquareEquation {
     }
 
     public String toString() {
-        return "Квадратное уравнение: " + a + "x^2 + " + b + "x + " + c + " = 0";
+        return STR."Квадратное уравнение: \{aCoefficient}x^2 + \{bCoefficient}x + \{cCoefficient} = 0";
     }
 
-    public double getExtremum() {
-        return -b / (2 * a);
+    public double getExtremeValue() {
+        return -bCoefficient / (2 * aCoefficient);
     }
 
-    public void displayIntervalOfRaiseAndDown() {
+    public double[][] getIntervalOfRaiseAndDown() {
         if (getDiscriminant() < 0) {
-            System.out.println("Квадратное уравнение не имеет корней.");
-        }else if (a > 0) {
-            System.out.println("Интервал возрастания: (-∞; " + getExtremum() + ").\nИнтервал убывания: (" + getExtremum() + "; +∞).");
+            return null;
+        }
+        double extremeValue = getExtremeValue();
+        if (aCoefficient > 0) {
+            return new double[][]{
+                    {Double.NEGATIVE_INFINITY, extremeValue},
+                    {extremeValue, Double.POSITIVE_INFINITY}
+            };
         } else {
-            System.out.println("Интервал возрастания: (" + getExtremum() + "; +∞).\nИнтервал убывания: (-∞; " + getExtremum() + ").");
+            return new double[][] {
+                    {extremeValue, Double.POSITIVE_INFINITY},
+                    {Double.NEGATIVE_INFINITY, extremeValue},
+            };
         }
     }
 

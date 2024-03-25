@@ -39,16 +39,6 @@ public class Customer {
         setBankAccountNumber(bankAccountNumber);
     }
 
-    public void displayCustomer() {
-        System.out.println(this);
-    }
-
-    public static void displayCustomers(ArrayList<Customer> customers) {
-        for (Customer customer : customers) {
-            customer.displayCustomer();
-        }
-    }
-
     public static ArrayList<Customer> getCustomersOrderedBySurname(ArrayList<Customer> customers) {
         for (int i = 0; i < customers.size() - 1; i++) {
             for (int j = i + 1; j < customers.size(); j++) {

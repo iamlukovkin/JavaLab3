@@ -35,14 +35,31 @@ public class ComplexNumber {
         return new ComplexNumber(getReal() + other.getReal(), getImaginary() + other.getImaginary());
     }
 
+    public ComplexNumber sub(ComplexNumber other) {
+        return new ComplexNumber(getReal() - other.getReal(), getImaginary() - other.getImaginary());
+    }
+
     public ComplexNumber multiply(ComplexNumber other) {
         double real = getReal() * other.getReal() - getImaginary() * other.getImaginary();
         double imaginary = getReal() * other.getImaginary() + getImaginary() * other.getReal();
         return new ComplexNumber(real, imaginary);
     }
 
+    public ComplexNumber divide(ComplexNumber other) {
+        double denominator = other.getReal() * other.getReal() + other.getImaginary() * other.getImaginary();
+        double real = (getReal() * other.getReal() + getImaginary() * other.getImaginary()) / denominator;
+        double imaginary = (getImaginary() * other.getReal() - getReal() * other.getImaginary()) / denominator;
+        return new ComplexNumber(real, imaginary);
+    }
+
+    public ComplexNumber square() {
+        double real = getReal() * getReal() - getImaginary() * getImaginary();
+        double imaginary = 2 * getReal() * getImaginary();
+        return new ComplexNumber(real, imaginary);
+    }
+
     @Override
     public String toString() {
-        return getReal() + " + " + getImaginary() + "i";
+        return STR."\{getReal()} + \{getImaginary()}i";
     }
 }
